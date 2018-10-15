@@ -23,16 +23,38 @@ def show_piles(pile_1, pile_2):
 
 
 def user_pile():
-    u_pile = input("Which pile? (1 or 2)")
-    return u_pile
+    while True:
+        u_pile = input("Which pile? (1 or 2) ")
+        if u_pile == 1:
+            return True
+        elif u_pile == 2:
+            return False
+        else:
+            print("Please enter a valid number (1 or 2)")
 
 
 def user_number():
-    u_number = input("How many stones? (1, 2, or 3)")
+    u_number = input("How many stones? (1, 2, or 3) ")
     return u_number
 
 
-def user_move():
+def user_move(u_pile, u_number):
+
+
+
+def computer_pile():
+    comp_pile = random.randint(1, 2)
+    return comp_pile
+
+
+
+def computer_number():
+    comp_number = random.randint(1, 3)
+    return comp_number
+
+
+def computer_move(comp_pile, comp_number):
+    pass
 
 
 def main():
@@ -42,11 +64,11 @@ def main():
         pile_1 = generate_piles()
         pile_2 = generate_piles()
         show_piles(pile_1, pile_2)
-        u_pile = user_pile()
         u_number = user_number()
         user_move(u_pile, u_number)
-        computer_pile()
-        computer_number()
+        comp_pile = computer_pile()
+        comp_number = computer_number()
+        computer_move(comp_pile, comp_number)
     print("Thanks for playing, bye!")
 
 
