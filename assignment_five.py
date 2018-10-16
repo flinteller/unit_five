@@ -23,14 +23,8 @@ def show_piles(pile_1, pile_2):
 
 
 def user_pile():
-    while True:
-        u_pile = input("Which pile? (1 or 2) ")
-        if u_pile == 1:
-            return True
-        elif u_pile == 2:
-            return False
-        else:
-            print("Please enter a valid number (1 or 2)")
+    u_pile = int(input("Which pile? (1 or 2) "))
+    return u_pile
 
 
 def user_number():
@@ -39,22 +33,31 @@ def user_number():
 
 
 def user_move(u_pile, u_number):
+    u_move = u_pile - u_number
+    return u_move
 
 
-
-def computer_pile():
-    comp_pile = random.randint(1, 2)
+def computer_pile(pile_1, pile_2):
+    if pile_1 == 0:
+        return 2
+    elif pile_2 == 0:
+        return 1
+    else:
+        comp_pile = random.randint(1, 2)
     return comp_pile
 
 
-
 def computer_number():
+    if comp_pile == 1 and
+
+
     comp_number = random.randint(1, 3)
-    return comp_number
+
 
 
 def computer_move(comp_pile, comp_number):
-    pass
+    comp_move = comp_pile - comp_number
+    return comp_move
 
 
 def main():
@@ -64,6 +67,12 @@ def main():
         pile_1 = generate_piles()
         pile_2 = generate_piles()
         show_piles(pile_1, pile_2)
+        u_pile = user_pile()
+        while True:
+            if u_pile == 1 or 2:
+                break
+            else:
+                print("Please enter a valid number")
         u_number = user_number()
         user_move(u_pile, u_number)
         comp_pile = computer_pile()
