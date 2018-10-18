@@ -5,91 +5,76 @@
 import random
 
 
-def play():
-    while True:
-        user_play = input("Would you like to play a game of Nim?(y/n) ")
-        if user_play == "y":
-            return True
-        elif user_play == "n":
-            return False
-        else:
-            print("Please enter y or n")
-
-
 def generate_piles():
+    """
+    This generates a random number of stones
+    :return: a random number of stones
+    """
     number_stones = random.randint(1, 10)
     return number_stones
 
 
 def show_piles(pile_1, pile_2):
+    """
+    Prints stones in each pile
+    :param pile_1:
+    :param pile_2:
+    :return:
+    """
     print("Pile 1: ", pile_1)
     print("Pile 2: ", pile_2)
 
 
-def user_pile():
-    while True:
-        u_pile = int(input("Which pile? (1 or 2) "))
-        if u_pile == 1:
-            return True
-        elif u_pile == 2:
-            return False
-        else:
-            print("Please enter a valid number")
-
-
-# def user_number():
-#     while True:
-#         u_number = input("How many stones? (1, 2, or 3) ")
-#
-#
-# def user_move(u_pile, u_number):
-#     if u_pile == 1:
-#         pass
-#
-#
-# def computer_pile(pile_1, pile_2):
-#     if pile_1 == 0:
-#         return 2
-#     elif pile_2 == 0:
-#         return 1
-#     else:
-#         comp_pile = random.randint(1, 2)
-#     return comp_pile
-#
-#
-# def computer_number(comp_pile, pile):
-#     if comp_pile == 1 and pile_1 == 3:
-#         return 3
-#     elif comp_pile == 2 and pile_2 == 3:
-#         return 3
-#     else:
-#         return random.randint(1, 3)
-#
-#
-#
-# def computer_move(comp_pile, comp_number):
-#     comp_move = comp_pile - comp_number
-#     return comp_move
-
-
 def main():
-    user_play = play()
+    # Checks if user wants to play, loops forever until 'n'
     while True:
-        if user_play == False:
+        user_play = input("Do you want to play  game?")
+        if user_play == "n":
             break
-        pile_1 = generate_piles()
-        pile_2 = generate_piles()
-        show_piles(pile_1, pile_2)
-        u_pile = user_pile()
-        while True:
-            if u_pile == True:
-                break
-        # u_number = user_number()
-        # user_move(u_pile, u_number)
-        # comp_pile = computer_pile()
-        # comp_number = computer_number()
-        # computer_move(comp_pile, comp_number)
-    print("Thanks for playing, bye!")
+        else:
+            pile_1 = generate_piles()
+            pile_2 = generate_piles()
+            # Starts game with piles generated and loops until both piles are empty
+            while True:
+                if pile_1 == 0 and pile_2 == 0:
+                    break
+                show_piles(pile_1, pile_2)
+                # Gets user input for which pile and how many stones
+                which_pile = int(input("Which pile?"))
+                num_stones = int(input("How many stones?"))
+                # Subtracts correct number from correct pile
+                if which_pile == 1:
+                    pile_1 = pile_1 - num_stones
+                else:
+                    pile_2 = pile_2 - num_stones
+                show_piles(pile_1, pile_2)
+                # Checks if user took last stones. If they did, end game, if not, keep going
+                if pile_1 == 0 and pile_2 == 0:
+                    print("You win!!")
+                    break
+                print("Computer's turn")
+                # Chooses computer's pile
+                if pile_1 == 0:
+                    computer_pile = 2
+                elif pile_2 == 0:
+                    computer_pile = 1
+                else:
+                    computer_pile = random.randint(1, 2)
+                # Chooses computer's number
+                if computer_pile == 1:
+                    if pile_1 <= 3:
+                        pile_1 = 0
+                    else:
+                        pile_1 = pile_1 - 3
+                else:
+                    if pile_2 <= 3:
+                        pile_2 = 0
+                    else:
+                        pile_2 = pile_2 - 3
+                # Checks if computer took last stones. If it did, end game, if not, keep going
+                if pile_1 == 0 and pile_2 == 0:
+                    print("You loose")
+                    break
 
 
 main()
